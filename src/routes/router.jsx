@@ -2,6 +2,10 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import HomeLayout from "../layouts/HomeLayout";
 import CategoryNews from "../Pages/CategoryNews";
 import AuthLayout from "../layouts/AuthLayout/AuthLayout";
+import Login from "../Pages/Login";
+import Register from "../Pages/Register";
+import NesDetails from "../Pages/NesDetails";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -10,7 +14,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Navigate to={"/category/01"}></Navigate>,
+        element: <Navigate to={"/category/08"}></Navigate>,
       },
       {
         path: "/category/:id",
@@ -23,18 +27,25 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "news",
-    element: <h4>fhh</h4>,
+    path: "/news/:id",
+    element:<PrivateRoute>
+       <NesDetails></NesDetails>
+    </PrivateRoute>,
+    loader: ({params}) => fetch(`https://openapi.programming-hero.com/api/news/${params.id}`),
   },
   {
     path: "auth",
     element: <AuthLayout></AuthLayout>,
-    children:[
+    children: [
       {
-        path:"/auth/login",
-        element:<h3>hhhh</h3>
-      }
-    ]
+        path: "/auth/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/auth/register",
+        element: <Register></Register>,
+      },
+    ],
   },
   {
     path: "*",

@@ -1,10 +1,11 @@
 import { CiBookmark } from "react-icons/ci";
 import { IoMdShare } from "react-icons/io";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const NewsCard = (props = {}) => {
   const { news } = props || {};
-  console.log(news);
+ 
   return (
     <div className="my-4 bg-white rounded-lg shadow-md">
      
@@ -43,7 +44,7 @@ const NewsCard = (props = {}) => {
 
         <div className="w-full h-72 rounded-none my-3">
           <img
-            src={news.thumbnail_url}
+            src={news.image_url}
             alt={news.title}
             className="w-full h-full"
           />
@@ -51,9 +52,9 @@ const NewsCard = (props = {}) => {
 
         <div className="p-4">
           <p className="pb-2">{news.details}</p>
-          <button className="text-red-400 font-bold hover:btn hover:border-none hover:bg-none">
+          <Link to={`/news/${news._id}`} className="text-red-400 font-bold hover:btn hover:border-none hover:bg-none">
             Read More
-          </button>
+          </Link>
         </div>
         <div className="border-b-2"></div>
         <div className="p-2  flex items-center justify-between">
